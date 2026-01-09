@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Estate API Documentation</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #3b82f6;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+    section {
+        background: white;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 {
+        color: #3b82f6;
+        margin-top: 0;
+    }
+    code {
+        background: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+    pre {
+        background: #f3f4f6;
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: 6px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 0.8rem;
+        text-align: left;
+    }
+    th {
+        background-color: #dbeafe;
+    }
+    .endpoint {
+        font-weight: bold;
+        color: #1d4ed8;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Real Estate API Documentation</h1>
+</header>
+
+<div class="container">
+
+    <!-- GET Real Estates -->
+    <section>
+        <h2>GET /api/real-estates</h2>
+        <p class="endpoint">Get a paginated list of real estate items. Role-based filtering applies.</p>
+        <h3>Query Parameters</h3>
+        <table>
+            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+            <tr><td>page</td><td>integer</td><td>Page number (default: 1)</td></tr>
+            <tr><td>limit</td><td>integer</td><td>Items per page (default: 10)</td></tr>
+            <tr><td>search</td><td>string</td><td>Search by title</td></tr>
+        </table>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "data": [ { ... } ],
+    "page": 1,
+    "limit": 10,
+    "total": 50,
+    "last_page": 5
+}
+        </pre>
+    </section>
+
+    <!-- GET User Portfolio -->
+    <section>
+        <h2>GET /api/real-estates/{userId}</h2>
+        <p class="endpoint">Get a user's portfolio of real estates. Overrides each item's owner with the specified user.</p>
+        <h3>Query Parameters</h3>
+        <table>
+            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+            <tr><td>page</td><td>integer</td><td>Page number (default: 1)</td></tr>
+            <tr><td>limit</td><td>integer</td><td>Items per page (default: 10)</td></tr>
+            <tr><td>search</td><td>string</td><td>Search by title</td></tr>
+        </table>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "data": [ { ... } ],
+    "page": 1,
+    "limit": 10,
+    "total": 20,
+    "last_page": 2
+}
+        </pre>
+    </section>
+
+    <!-- CREATE Real Estate -->
+    <section>
+        <h2>POST /api/real-estates</h2>
+        <p class="endpoint">Create a new real estate item. Authenticated user becomes owner.</p>
+        <h3>Request Body</h3>
+        <pre>
+{
+    "title": "Villa in Dubai Marina",
+    "price": 1500000,
+    "currency": "USD",
+    "stage": "NEW",
+    "source": "CALL",
+    "start_date": "2026-01-06T03:00:00+03:00",
+    "end_date": "2026-01-15T03:00:00+03:00",
+    "property_details": "Luxury villa with sea view",
+    "property_files": null
+}
+        </pre>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "result": { "id": 101, "fields": { ... } }
+}
+        </pre>
+    </section>
+
+    <!-- UPDATE Real Estate -->
+    <section>
+        <h2>PUT /api/real-estates/{id}</h2>
+        <p class="endpoint">Update a real estate item. Only accessible if user has permission.</p>
+        <h3>Request Body</h3>
+        <pre>
+{
+    "title": "Updated Villa Title",
+    "price": 1550000,
+    "stage": "IN_PROGRESS",
+    "property_details": "Updated details"
+}
+        </pre>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "result": { "id": 101, "fields": { ... } }
+}
+        </pre>
+        <h3>Response (403 Forbidden)</h3>
+        <pre>
+{
+    "message": "Forbidden"
+}
+        </pre>
+    </section>
+
+    <!-- DELETE Real Estate -->
+    <section>
+        <h2>DELETE /api/real-estates/{id}</h2>
+        <p class="endpoint">Delete a real estate item. Only accessible if user has permission.</p>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "success": true
+}
+        </pre>
+        <h3>Response (403 Forbidden)</h3>
+        <pre>
+{
+    "message": "Forbidden"
+}
+        </pre>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communication API Documentation</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #3b82f6;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+    section {
+        background: white;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 {
+        color: #3b82f6;
+        margin-top: 0;
+    }
+    code {
+        background: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+    pre {
+        background: #f3f4f6;
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: 6px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 0.8rem;
+        text-align: left;
+    }
+    th {
+        background-color: #dbeafe;
+    }
+    .endpoint {
+        font-weight: bold;
+        color: #1d4ed8;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Communication API Documentation</h1>
+</header>
+
+<div class="container">
+
+    <!-- ADD COMMENT -->
+    <section>
+        <h2>POST /api/communication/comment</h2>
+        <p class="endpoint">Add a comment to a SPA item in Bitrix24. Requires authentication.</p>
+        <h3>Request Body</h3>
+        <pre>
+{
+    "entity_id": 1038,
+    "comment": "This is a test comment"
+}
+        </pre>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "success": true,
+    "result": { "ID": 123 }
+}
+        </pre>
+        <h3>Response (400 Bad Request)</h3>
+        <pre>
+{
+    "success": false,
+    "error": "OWNER_NOT_FOUND",
+    "error_description": "Owner was not found"
+}
+        </pre>
+    </section>
+
+    <!-- STORE LEAD -->
+    <section>
+        <h2>POST /api/communication/lead</h2>
+        <p class="endpoint">Store a new lead in Bitrix24. No authentication required.</p>
+        <h3>Request Body</h3>
+        <pre>
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "message": "Interested in your services"
+}
+        </pre>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "success": true,
+    "result": 101
+}
+        </pre>
+        <h3>Response (400 Bad Request)</h3>
+        <pre>
+{
+    "success": false,
+    "error": "Invalid email",
+    "error_description": null
+}
+        </pre>
+    </section>
+
+    <!-- STORE CONTACT -->
+    <section>
+        <h2>POST /api/communication/contact</h2>
+        <p class="endpoint">Add a new contact to Bitrix24 for unauthenticated users.</p>
+        <h3>Request Body</h3>
+        <pre>
+{
+    "first_name": "John",
+    "second_name": "Michael",
+    "last_name": "Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+}
+        </pre>
+        <h3>Response (200 OK)</h3>
+        <pre>
+{
+    "success": true,
+    "contact_id": 201
+}
+        </pre>
+        <h3>Response (400 Bad Request)</h3>
+        <pre>
+{
+    "success": false,
+    "error": "EMAIL_ALREADY_EXISTS",
+    "error_description": null
+}
+        </pre>
+    </section>
+
+</div>
+
+</body>
+</html>
