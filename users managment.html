@@ -89,7 +89,7 @@
             <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
             <tr><td>page</td><td>integer</td><td>Page number (default 1)</td></tr>
             <tr><td>per_page</td><td>integer</td><td>Items per page (default 10)</td></tr>
-            <tr><td>search</td><td>string</td><td>Search by name or email</td></tr>
+            <tr><td>search</td><td>string</td><td>Search by name, email, Instagram, TikTok, or WhatsApp links</td></tr>
         </table>
         <h3>Response</h3>
         <pre>
@@ -100,8 +100,12 @@
             "name": "John Doe",
             "email": "john@example.com",
             "role": "agent",
+            "phone": "+123456789",
             "agent_id": null,
-            "team_lead_id": 2
+            "team_lead_id": 2,
+            "instagram_link": "https://instagram.com/john",
+            "tiktok_link": "https://tiktok.com/@john",
+            "whatsapp_link": "https://wa.me/123456789"
         }
     ],
     "total": 1,
@@ -121,7 +125,11 @@
     "name": "Jane Doe",
     "email": "jane@example.com",
     "password": "password123",
-    "role": "agent"
+    "role": "agent",
+    "phone": "+123456789",
+    "instagram_link": "https://instagram.com/jane",
+    "tiktok_link": "https://tiktok.com/@jane",
+    "whatsapp_link": "https://wa.me/123456789"
 }
         </pre>
         <h3>Response (201 Created)</h3>
@@ -131,8 +139,12 @@
     "name": "Jane Doe",
     "email": "jane@example.com",
     "role": "agent",
+    "phone": "+123456789",
     "agent_id": null,
-    "team_lead_id": 2
+    "team_lead_id": 2,
+    "instagram_link": "https://instagram.com/jane",
+    "tiktok_link": "https://tiktok.com/@jane",
+    "whatsapp_link": "https://wa.me/123456789"
 }
         </pre>
     </section>
@@ -148,8 +160,12 @@
     "name": "Jane Doe",
     "email": "jane@example.com",
     "role": "agent",
+    "phone": "+123456789",
     "agent_id": null,
-    "team_lead_id": 2
+    "team_lead_id": 2,
+    "instagram_link": "https://instagram.com/jane",
+    "tiktok_link": "https://tiktok.com/@jane",
+    "whatsapp_link": "https://wa.me/123456789"
 }
         </pre>
     </section>
@@ -157,14 +173,18 @@
     <!-- Update User -->
     <section>
         <h2>PUT /api/users/{id}</h2>
-        <p class="endpoint">Description: Update user information.</p>
-        <h3>Request Body (optional fields)</h3>
+        <p class="endpoint">Description: Update user information (optional fields).</p>
+        <h3>Request Body</h3>
         <pre>
 {
     "name": "Jane Smith",
     "email": "janesmith@example.com",
     "password": "newpassword123",
-    "role": "agent"
+    "role": "agent",
+    "phone": "+987654321",
+    "instagram_link": "https://instagram.com/janesmith",
+    "tiktok_link": "https://tiktok.com/@janesmith",
+    "whatsapp_link": "https://wa.me/987654321"
 }
         </pre>
         <h3>Response</h3>
@@ -174,8 +194,12 @@
     "name": "Jane Smith",
     "email": "janesmith@example.com",
     "role": "agent",
+    "phone": "+987654321",
     "agent_id": null,
-    "team_lead_id": 2
+    "team_lead_id": 2,
+    "instagram_link": "https://instagram.com/janesmith",
+    "tiktok_link": "https://tiktok.com/@janesmith",
+    "whatsapp_link": "https://wa.me/987654321"
 }
         </pre>
     </section>
