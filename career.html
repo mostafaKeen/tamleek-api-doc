@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career API Documentation</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #10b981;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+    section {
+        background: white;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 {
+        color: #10b981;
+        margin-top: 0;
+    }
+    code {
+        background: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+    pre {
+        background: #f3f4f6;
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: 6px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 0.8rem;
+        text-align: left;
+    }
+    th {
+        background-color: #d1fae5;
+    }
+    .endpoint {
+        font-weight: bold;
+        color: #059669;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Career API Documentation</h1>
+</header>
+
+<div class="container">
+
+    <!-- SUBMIT CAREER APPLICATION -->
+    <section>
+        <h2>POST /api/career/store</h2>
+        <p class="endpoint">Description: Submit a career application (SPA 1042) including CV and photo. Multiple file upload supported.</p>
+
+        <h3>Request Body (multipart/form-data)</h3>
+        <pre>
+{
+    "full_name": "Jane Doe",
+    "phone": "+11234567890",
+    "email": "jane@example.com",
+    "experience": 3,                  // optional, in years
+    "cv": (PDF/DOC/DOCX file),        // required
+    "photo": (JPG/PNG file),          // required
+    "linkedin": "https://linkedin.com/in/jane",   // optional
+    "facebook": "https://facebook.com/jane",     // optional
+    "instagram": "https://instagram.com/jane",   // optional
+    "twitter": "https://twitter.com/jane",       // optional
+    "tiktok": "https://tiktok.com/@jane",        // optional
+    "reason": "Why I am a good fit for this role" // required
+}
+        </pre>
+
+        <h3>Response (Success - 200 OK)</h3>
+        <pre>
+{
+    "success": true,
+    "item_id": 12345
+}
+        </pre>
+
+        <h3>Response (Validation Error - 400 Bad Request)</h3>
+        <pre>
+{
+    "success": false,
+    "error": "validation_error",
+    "error_description": {
+        "full_name": ["The full name field is required."],
+        "cv": ["The cv must be a file of type: pdf, doc, docx."],
+        ...
+    },
+    "bitrix_response": {...}  // optional response from Bitrix API
+}
+        </pre>
+
+        <h3>Response (Bitrix API Error - 400 Bad Request)</h3>
+        <pre>
+{
+    "success": false,
+    "error": "ERROR_CODE",
+    "error_description": "Detailed error from Bitrix",
+    "bitrix_response": {...}
+}
+        </pre>
+
+        <h3>Notes</h3>
+        <ul>
+            <li>File fields (`cv` and `photo`) are encoded in base64 and sent to Bitrix SPA field `ufcrm_10_1769065094`.</li>
+            <li>`experience` is optional but must be an integer ≥ 0 if provided.</li>
+            <li>URLs for social media fields must be valid URLs if provided.</li>
+            <li>All required fields must be present; otherwise, validation error is returned.</li>
+        </ul>
+    </section>
+
+</div>
+
+</body>
+</html>
