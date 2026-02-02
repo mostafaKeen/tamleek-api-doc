@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Details API Documentation</title>
+<style>
+    body { font-family: Arial, sans-serif; background-color: #f5f7fa; color: #333; margin: 0; padding: 0; line-height: 1.6; }
+    header { background-color: #0ea5e9; color: #fff; padding: 2rem; text-align: center; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    section { background: #fff; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    h2 { margin-top: 0; color: #0ea5e9; }
+    pre { background: #f3f4f6; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 0.8rem; text-align: left; }
+    th { background-color: #e0f2fe; }
+    .endpoint { font-weight: bold; color: #0369a1; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Company Details API Documentation</h1>
+</header>
+
+<div class="container">
+
+<!-- GET COMPANY DETAILS -->
+<section>
+    <h2>GET /api/company-details</h2>
+    <p class="endpoint">
+        Get company contact, social details, and shift information.   
+        Public endpoint (no authentication required). 
+    </p>
+
+    <h3>Response (200 OK)</h3>
+    <pre>{ 
+  "id": 1, 
+  "phone": "+971 6 566 2233", 
+  "mobile": "+971 50 228 8787", 
+  "management_email": "info@tamleekuae.ae", 
+  "clients_email": "info@tamleekuae.ae", 
+  "support_email": "support@tamleekuae.ae", 
+  "career_email": "career@tamleekuae.ae", 
+  "linkedin": "https://linkedin.com/company/...", 
+  "facebook": "https://facebook.com/...", 
+  "twitter": "https://twitter.com/...", 
+  "tiktok": "https://tiktok.com/@...", 
+  "instagram": "https://instagram.com/...", 
+  "whatsapp": "https://wa.me/971502288787",
+  "first_shift": "08:00 - 16:00",
+  "second_shift": "16:00 - 00:00",
+  "holiday": "Friday",
+  "created_at": "2026-01-07T12:00:00", 
+  "updated_at": "2026-01-07T12:00:00" 
+}</pre>
+
+    <h3>Notes</h3>
+    <ul>
+        <li>Returns <strong>first company record</strong></li>
+        <li>Usually only one record exists</li>
+    </ul>
+</section>
+
+<!-- CREATE / UPDATE COMPANY DETAILS -->
+<section>
+    <h2>POST /api/company-details</h2>
+    <p class="endpoint">
+        Create or update company details.   
+        <strong>Admin only</strong>.
+    </p>
+
+    <h3>Headers</h3>
+    <table>
+        <tr><th>Header</th><th>Value</th></tr>
+        <tr><td>Authorization</td><td>Bearer &lt;sanctum_token&gt;</td></tr>
+    </table>
+
+    <h3>Request Body (JSON)</h3>
+    <pre>{ 
+  "phone": "+971 6 566 2233", 
+  "mobile": "+971 50 228 8787", 
+  "management_email": "info@tamleekuae.ae", 
+  "clients_email": "info@tamleekuae.ae", 
+  "support_email": "support@tamleekuae.ae", 
+  "career_email": "career@tamleekuae.ae", 
+  "linkedin": "https://linkedin.com/company/...", 
+  "facebook": "https://facebook.com/...", 
+  "twitter": "https://twitter.com/...", 
+  "tiktok": "https://tiktok.com/@...", 
+  "instagram": "https://instagram.com/...", 
+  "whatsapp": "https://wa.me/971502288787",
+  "first_shift": "08:00 - 16:00",
+  "second_shift": "16:00 - 00:00",
+  "holiday": "Friday"
+}</pre>
+
+    <h3>Response (200 OK)</h3>
+    <pre>{ 
+  "success": true, 
+  "data": { 
+    "id": 1, 
+    "phone": "+971 6 566 2233", 
+    "mobile": "+971 50 228 8787", 
+    "management_email": "info@tamleekuae.ae", 
+    "clients_email": "info@tamleekuae.ae", 
+    "support_email": "support@tamleekuae.ae", 
+    "career_email": "career@tamleekuae.ae", 
+    "linkedin": "https://linkedin.com/company/...", 
+    "facebook": "https://facebook.com/...", 
+    "twitter": "https://twitter.com/...", 
+    "tiktok": "https://tiktok.com/@...", 
+    "instagram": "https://instagram.com/...", 
+    "whatsapp": "https://wa.me/971502288787",
+    "first_shift": "08:00 - 16:00",
+    "second_shift": "16:00 - 00:00",
+    "holiday": "Friday"
+  } 
+}</pre>
+
+    <h3>Error Responses</h3>
+    <pre> 
+403 - Unauthorized (not admin) 
+401 - Unauthenticated 
+    </pre>
+
+    <h3>Notes</h3>
+    <ul>
+        <li>Uses <code>updateOrCreate</code></li>
+        <li>Only one company record is maintained</li>
+        <li>Admin check via <code>isAdmin()</code></li>
+    </ul>
+</section>
+
+</div>
+</body>
+</html>
