@@ -1,203 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real Estate API Documentation</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f7fa;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #3b82f6;
-        color: white;
-        padding: 2rem;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 2rem;
-    }
-    .container {
-        max-width: 1000px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-    }
-    section {
-        background: white;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    h2 {
-        color: #3b82f6;
-        margin-top: 0;
-    }
-    code {
-        background: #f3f4f6;
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
-        font-family: monospace;
-    }
-    pre {
-        background: #f3f4f6;
-        padding: 1rem;
-        overflow-x: auto;
-        border-radius: 6px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-    th, td {
-        padding: 0.8rem;
-        text-align: left;
-    }
-    th {
-        background-color: #dbeafe;
-    }
-    .endpoint {
-        font-weight: bold;
-        color: #1d4ed8;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3b82f6;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #3b82f6;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #1d4ed8;
+            margin-top: 1.5rem;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #dbeafe;
+        }
+
+        .endpoint {
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .get {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .post {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .put {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .delete {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .auth-required {
+            background-color: #fef3c7;
+            padding: 0.5rem;
+            border-left: 4px solid #f59e0b;
+            margin: 1rem 0;
+        }
+
+        .public {
+            background-color: #d1fae5;
+            padding: 0.5rem;
+            border-left: 4px solid #10b981;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Real Estate API Documentation</h1>
-</header>
+    <header>
+        <h1>🏠 Real Estate API Documentation</h1>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-    <!-- GET Real Estates -->
-    <section>
-        <h2>GET /api/real-estates</h2>
-        <p class="endpoint">Get a paginated list of real estate items. Role-based filtering applies.</p>
-        <h3>Query Parameters</h3>
-        <table>
-            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-            <tr><td>page</td><td>integer</td><td>Page number (default: 1)</td></tr>
-            <tr><td>limit</td><td>integer</td><td>Items per page (default: 10)</td></tr>
-            <tr><td>search</td><td>string</td><td>Search by title</td></tr>
-        </table>
-        <h3>Response (200 OK)</h3>
-        <pre>
-{
+        <!-- GET All Real Estates (Public) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/real-estates/all</h2>
+            <div class="public">🌐 <strong>Public Endpoint</strong> - No authentication required</div>
+            <p class="endpoint">Get all real estate listings (filtered to show only NEW and UC_6MWYD6 stages)</p>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>integer</td>
+                    <td>Page number (default: 1)</td>
+                </tr>
+                <tr>
+                    <td>limit</td>
+                    <td>integer</td>
+                    <td>Items per page (default: 10)</td>
+                </tr>
+                <tr>
+                    <td>search</td>
+                    <td>string</td>
+                    <td>Search by title</td>
+                </tr>
+                <tr>
+                    <td>city</td>
+                    <td>string</td>
+                    <td>Filter by city</td>
+                </tr>
+                <tr>
+                    <td>property_type</td>
+                    <td>string</td>
+                    <td>Filter by property type</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "data": [
+        {
+            "id": 101,
+            "title": "Luxury Villa in Dubai Marina",
+            "price": 1500000,
+            "currency": "USD",
+            "stage_id": "DT1038_14:NEW",
+            "property_type": "Villa",
+            "property_type_id": 123,
+            "priority": "High",
+            "priority_id": 456,
+            "property_details": "Luxury villa with sea view",
+            "description": "Detailed property description",
+            "area_sqft": 3500,
+            "images": [
+                "https://example.com/image1.jpg",
+                "https://example.com/image2.jpg"
+            ],
+            "cover_image": "https://example.com/cover.jpg",
+            "cover_image_id": 789,
+            "reference": "REF-12345",
+            "owner": {
+                "id": 5,
+                "name": "John Doe",
+                "email": "john@example.com",
+                "role": "agent",
+                "phone": "+123456789",
+                "image": "https://example.com/storage/users/john.jpg",
+                "instagram_link": "https://instagram.com/john",
+                "tiktok_link": "https://tiktok.com/@john",
+                "whatsapp_link": "https://wa.me/123456789"
+            },
+            "owner_id": 5
+        }
+    ],
+    "page": 1,
+    "limit": 10,
+    "total": 50,
+    "last_page": 5
+}</pre>
+        </section>
+
+        <!-- GET User Portfolio (Public) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/real-estates/portfolio/{userId}</h2>
+            <div class="public">🌐 <strong>Public Endpoint</strong> - No authentication required</div>
+            <p class="endpoint">Get a user's real estate portfolio with ratings and comments</p>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>integer</td>
+                    <td>Page number (default: 1)</td>
+                </tr>
+                <tr>
+                    <td>limit</td>
+                    <td>integer</td>
+                    <td>Items per page (default: 10)</td>
+                </tr>
+                <tr>
+                    <td>search</td>
+                    <td>string</td>
+                    <td>Search by title</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "data": [ { ... } ],
+    "page": 1,
+    "limit": 10,
+    "total": 20,
+    "last_page": 2,
+    "owner": {
+        "id": 5,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "agent",
+        "image": "https://example.com/storage/users/john.jpg",
+        "phone": "+123456789",
+        "instagram_link": "https://instagram.com/john",
+        "tiktok_link": "https://tiktok.com/@john",
+        "whatsapp_link": "https://wa.me/123456789",
+        "ratings": [
+            {
+                "id": 1,
+                "rating": 5,
+                "comment": "Excellent service!",
+                "created_at": "2026-02-09T09:51:23.000000Z",
+                "rater": {
+                    "id": 2,
+                    "name": "Jane Smith",
+                    "email": "jane@example.com",
+                    "role": "team_lead",
+                    "image": "https://example.com/storage/users/jane.jpg"
+                }
+            }
+        ],
+        "average_rating": 4.75,
+        "total_ratings": 12
+    }
+}</pre>
+        </section>
+
+        <!-- GET Single Real Estate (Public) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/real-estates/{id}</h2>
+            <div class="public">🌐 <strong>Public Endpoint</strong> - No authentication required</div>
+            <p class="endpoint">Get a single real estate item by ID</p>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "id": 101,
+    "title": "Luxury Villa in Dubai Marina",
+    "price": 1500000,
+    "currency": "USD",
+    "stage_id": "DT1038_14:NEW",
+    "property_type": "Villa",
+    "property_type_id": 123,
+    "priority": "High",
+    "priority_id": 456,
+    "property_details": "Luxury villa with sea view",
+    "description": "Detailed property description",
+    "area_sqft": 3500,
+    "images": [...],
+    "cover_image": "https://example.com/cover.jpg",
+    "cover_image_id": 789,
+    "reference": "REF-12345",
+    "owner": { ... },
+    "owner_id": 5
+}</pre>
+
+            <h3>Response (404 Not Found)</h3>
+            <pre>{
+    "error": "Item not found"
+}</pre>
+        </section>
+
+        <!-- GET Enums (Public) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/real-estates/enums</h2>
+            <div class="public">🌐 <strong>Public Endpoint</strong> - No authentication required</div>
+            <p class="endpoint">Get all ENUM options for frontend select inputs (property types, priorities, etc.)</p>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "ufCrm8_1768799149": [
+        { "value": "123", "label": "Villa" },
+        { "value": "124", "label": "Apartment" },
+        { "value": "125", "label": "Townhouse" }
+    ],
+    "ufCrm8_1768799371": [
+        { "value": "456", "label": "High" },
+        { "value": "457", "label": "Medium" },
+        { "value": "458", "label": "Low" }
+    ]
+}</pre>
+        </section>
+
+        <!-- GET Real Estates (Authenticated) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/real-estates</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Get a paginated list of real estate items with role-based filtering</p>
+
+            <h3>Role-Based Access</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can see all items</li>
+                <li><strong>Team Lead:</strong> Can see own items + items from their agents + admin items</li>
+                <li><strong>Agent:</strong> Can see own items + team lead's items + admin items</li>
+                <li><strong>Client:</strong> Can see only own items</li>
+            </ul>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>integer</td>
+                    <td>Page number (default: 1)</td>
+                </tr>
+                <tr>
+                    <td>limit</td>
+                    <td>integer</td>
+                    <td>Items per page (default: 10)</td>
+                </tr>
+                <tr>
+                    <td>search</td>
+                    <td>string</td>
+                    <td>Search by title</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
     "data": [ { ... } ],
     "page": 1,
     "limit": 10,
     "total": 50,
     "last_page": 5
-}
-        </pre>
-    </section>
+}</pre>
+        </section>
 
-    <!-- GET User Portfolio -->
-    <section>
-        <h2>GET /api/real-estates/{userId}</h2>
-        <p class="endpoint">Get a user's portfolio of real estates. Overrides each item's owner with the specified user.</p>
-        <h3>Query Parameters</h3>
-        <table>
-            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-            <tr><td>page</td><td>integer</td><td>Page number (default: 1)</td></tr>
-            <tr><td>limit</td><td>integer</td><td>Items per page (default: 10)</td></tr>
-            <tr><td>search</td><td>string</td><td>Search by title</td></tr>
-        </table>
-        <h3>Response (200 OK)</h3>
-        <pre>
-{
-    "data": [ { ... } ],
-    "page": 1,
-    "limit": 10,
-    "total": 20,
-    "last_page": 2
-}
-        </pre>
-    </section>
+        <!-- CREATE Real Estate -->
+        <section>
+            <h2><span class="method post">POST</span>/api/real-estates</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Create a new real estate item. Authenticated user becomes owner.</p>
 
-    <!-- CREATE Real Estate -->
-    <section>
-        <h2>POST /api/real-estates</h2>
-        <p class="endpoint">Create a new real estate item. Authenticated user becomes owner.</p>
-        <h3>Request Body</h3>
-        <pre>
-{
-    "title": "Villa in Dubai Marina",
+            <h3>Request Body</h3>
+            <pre>{
+    "title": "Luxury Villa in Dubai Marina",
     "price": 1500000,
     "currency": "USD",
-    "stage": "NEW",
-    "source": "CALL",
+    "stage": "DT1038_14:NEW",
+    "source": "WEB",
     "start_date": "2026-01-06T03:00:00+03:00",
     "end_date": "2026-01-15T03:00:00+03:00",
     "property_details": "Luxury villa with sea view",
-    "property_files": null
-}
-        </pre>
-        <h3>Response (200 OK)</h3>
-        <pre>
-{
-    "result": { "id": 101, "fields": { ... } }
-}
-        </pre>
-    </section>
+    "description": "Detailed property description with amenities",
+    "property_type": 123,
+    "area_sqft": 3500,
+    "priority": 456,
+    "images": [...],
+    "cover_image": "..."
+}</pre>
 
-    <!-- UPDATE Real Estate -->
-    <section>
-        <h2>PUT /api/real-estates/{id}</h2>
-        <p class="endpoint">Update a real estate item. Only accessible if user has permission.</p>
-        <h3>Request Body</h3>
-        <pre>
-{
+            <h3>Field Descriptions</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>title</td>
+                    <td>string</td>
+                    <td>Property title</td>
+                </tr>
+                <tr>
+                    <td>price</td>
+                    <td>number</td>
+                    <td>Property price</td>
+                </tr>
+                <tr>
+                    <td>currency</td>
+                    <td>string</td>
+                    <td>Currency code (default: USD)</td>
+                </tr>
+                <tr>
+                    <td>property_details</td>
+                    <td>string</td>
+                    <td>Brief property details (تفصيل)</td>
+                </tr>
+                <tr>
+                    <td>description</td>
+                    <td>string</td>
+                    <td>Detailed description (تفاصيل العقار)</td>
+                </tr>
+                <tr>
+                    <td>property_type</td>
+                    <td>integer</td>
+                    <td>Property type enum ID</td>
+                </tr>
+                <tr>
+                    <td>area_sqft</td>
+                    <td>number</td>
+                    <td>Area in square feet</td>
+                </tr>
+                <tr>
+                    <td>priority</td>
+                    <td>integer</td>
+                    <td>Priority enum ID</td>
+                </tr>
+                <tr>
+                    <td>images</td>
+                    <td>array</td>
+                    <td>Array of image URLs/files</td>
+                </tr>
+                <tr>
+                    <td>cover_image</td>
+                    <td>string</td>
+                    <td>Cover image URL/file</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "result": {
+        "item": {
+            "id": 101,
+            ...
+        }
+    }
+}</pre>
+        </section>
+
+        <!-- UPDATE Real Estate -->
+        <section>
+            <h2><span class="method put">PUT</span>/api/real-estates/{id}</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Update a real estate item. Only accessible if user has permission (owner, team lead, or
+                admin).</p>
+
+            <h3>Request Body (all fields optional)</h3>
+            <pre>{
     "title": "Updated Villa Title",
     "price": 1550000,
-    "stage": "IN_PROGRESS",
-    "property_details": "Updated details"
-}
-        </pre>
-        <h3>Response (200 OK)</h3>
-        <pre>
-{
-    "result": { "id": 101, "fields": { ... } }
-}
-        </pre>
-        <h3>Response (403 Forbidden)</h3>
-        <pre>
-{
-    "message": "Forbidden"
-}
-        </pre>
-    </section>
+    "stage": "DT1038_14:UC_6MWYD6",
+    "property_details": "Updated details",
+    "description": "Updated description",
+    "property_type": 124,
+    "area_sqft": 3600,
+    "priority": 457
+}</pre>
 
-    <!-- DELETE Real Estate -->
-    <section>
-        <h2>DELETE /api/real-estates/{id}</h2>
-        <p class="endpoint">Delete a real estate item. Only accessible if user has permission.</p>
-        <h3>Response (200 OK)</h3>
-        <pre>
-{
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "result": {
+        "item": {
+            "id": 101,
+            ...
+        }
+    }
+}</pre>
+
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+        </section>
+
+        <!-- DELETE Real Estate -->
+        <section>
+            <h2><span class="method delete">DELETE</span>/api/real-estates/{id}</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Delete a real estate item. Only accessible if user has permission (owner, team lead, or
+                admin).</p>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
     "success": true
-}
-        </pre>
-        <h3>Response (403 Forbidden)</h3>
-        <pre>
-{
-    "message": "Forbidden"
-}
-        </pre>
-    </section>
+}</pre>
 
-</div>
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+        </section>
+
+    </div>
 
 </body>
+
 </html>

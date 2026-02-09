@@ -1,99 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Management API Documentation</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f7fa;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #4f46e5;
-        color: white;
-        padding: 2rem;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 2rem;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-    }
-    section {
-        background: white;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    h2 {
-        color: #4f46e5;
-        margin-top: 0;
-    }
-    code {
-        background: #f3f4f6;
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
-        font-family: monospace;
-    }
-    pre {
-        background: #f3f4f6;
-        padding: 1rem;
-        overflow-x: auto;
-        border-radius: 6px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-    th, td {
-        padding: 0.8rem;
-        text-align: left;
-    }
-    th {
-        background-color: #eef2ff;
-    }
-    .endpoint {
-        font-weight: bold;
-        color: #1d4ed8;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4f46e5;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #4f46e5;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #1d4ed8;
+            margin-top: 1.5rem;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eef2ff;
+        }
+
+        .endpoint {
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .get {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .post {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .put {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .delete {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .auth-required {
+            background-color: #fef3c7;
+            padding: 0.5rem;
+            border-left: 4px solid #f59e0b;
+            margin: 1rem 0;
+        }
+
+        .note {
+            background-color: #dbeafe;
+            padding: 0.5rem;
+            border-left: 4px solid #3b82f6;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-    <h1>User Management API Documentation</h1>
-</header>
+    <header>
+        <h1>👥 User Management API Documentation</h1>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-    <!-- List Users -->
-    <section>
-        <h2>GET /api/users</h2>
-        <p class="endpoint">Description: List users with search and pagination.</p>
-        <h3>Query Parameters</h3>
-        <table>
-            <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-            <tr><td>page</td><td>integer</td><td>Page number (default 1)</td></tr>
-            <tr><td>per_page</td><td>integer</td><td>Items per page (default 10)</td></tr>
-            <tr><td>search</td><td>string</td><td>Search by name, email, Instagram, TikTok, or WhatsApp links</td></tr>
-        </table>
-        <h3>Response</h3>
-        <pre>
-{
+        <!-- List Users -->
+        <section>
+            <h2><span class="method get">GET</span>/api/users</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">List users with search and pagination. Role-based visibility applies.</p>
+
+            <h3>Role-Based Access</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can see all users</li>
+                <li><strong>Team Lead:</strong> Can see only their agents</li>
+                <li><strong>Agent:</strong> Forbidden (403)</li>
+                <li><strong>Client:</strong> Forbidden (403)</li>
+            </ul>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>integer</td>
+                    <td>Page number (default: 1)</td>
+                </tr>
+                <tr>
+                    <td>per_page</td>
+                    <td>integer</td>
+                    <td>Items per page (default: 10)</td>
+                </tr>
+                <tr>
+                    <td>search</td>
+                    <td>string</td>
+                    <td>Search by name, email, Instagram, TikTok, or WhatsApp links</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
     "data": [
         {
             "id": 1,
@@ -105,23 +198,39 @@
             "team_lead_id": 2,
             "instagram_link": "https://instagram.com/john",
             "tiktok_link": "https://tiktok.com/@john",
-            "whatsapp_link": "https://wa.me/123456789"
+            "whatsapp_link": "https://wa.me/123456789",
+            "image": "https://example.com/storage/users/john.jpg",
+            "created_at": "2026-01-01T00:00:00.000000Z",
+            "updated_at": "2026-02-09T09:51:23.000000Z"
         }
     ],
-    "total": 1,
+    "total": 25,
     "page": 1,
     "per_page": 10
-}
-        </pre>
-    </section>
+}</pre>
 
-    <!-- Create User -->
-    <section>
-        <h2>POST /api/users</h2>
-        <p class="endpoint">Description: Create a new user (permissions depend on role).</p>
-        <h3>Request Body</h3>
-        <pre>
-{
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+        </section>
+
+        <!-- Create User -->
+        <section>
+            <h2><span class="method post">POST</span>/api/users</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Create a new user. Permissions depend on role.</p>
+
+            <h3>Role-Based Creation Rules</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can create any role</li>
+                <li><strong>Team Lead:</strong> Can only create agents (auto-assigned to them)</li>
+                <li><strong>Agent:</strong> Forbidden (403)</li>
+                <li><strong>Client:</strong> Forbidden (403)</li>
+            </ul>
+
+            <h3>Request Body</h3>
+            <pre>{
     "name": "Jane Doe",
     "email": "jane@example.com",
     "password": "password123",
@@ -129,12 +238,66 @@
     "phone": "+123456789",
     "instagram_link": "https://instagram.com/jane",
     "tiktok_link": "https://tiktok.com/@jane",
-    "whatsapp_link": "https://wa.me/123456789"
-}
-        </pre>
-        <h3>Response (201 Created)</h3>
-        <pre>
-{
+    "whatsapp_link": "https://wa.me/123456789",
+    "image": &lt;file upload&gt;
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>required, string, max:255</td>
+                    <td>User's full name</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>required, email, unique</td>
+                    <td>User's email address</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>required, string, min:8</td>
+                    <td>User's password</td>
+                </tr>
+                <tr>
+                    <td>role</td>
+                    <td>required, in:client,agent,team_lead,admin</td>
+                    <td>User role</td>
+                </tr>
+                <tr>
+                    <td>phone</td>
+                    <td>nullable, string, max:20</td>
+                    <td>Phone number</td>
+                </tr>
+                <tr>
+                    <td>instagram_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>Instagram profile URL</td>
+                </tr>
+                <tr>
+                    <td>tiktok_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>TikTok profile URL</td>
+                </tr>
+                <tr>
+                    <td>whatsapp_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>WhatsApp link</td>
+                </tr>
+                <tr>
+                    <td>image</td>
+                    <td>nullable, image, max:5120</td>
+                    <td>Profile image (max 5MB)</td>
+                </tr>
+            </table>
+
+            <h3>Response (201 Created)</h3>
+            <pre>{
     "id": 5,
     "name": "Jane Doe",
     "email": "jane@example.com",
@@ -144,18 +307,43 @@
     "team_lead_id": 2,
     "instagram_link": "https://instagram.com/jane",
     "tiktok_link": "https://tiktok.com/@jane",
-    "whatsapp_link": "https://wa.me/123456789"
-}
-        </pre>
-    </section>
+    "whatsapp_link": "https://wa.me/123456789",
+    "image": "users/abc123.jpg",
+    "created_at": "2026-02-09T09:51:23.000000Z",
+    "updated_at": "2026-02-09T09:51:23.000000Z"
+}</pre>
 
-    <!-- Show User -->
-    <section>
-        <h2>GET /api/users/{id}</h2>
-        <p class="endpoint">Description: Get a specific user by ID.</p>
-        <h3>Response</h3>
-        <pre>
-{
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Team lead can only create agents"
+}</pre>
+        </section>
+
+        <!-- Show User -->
+        <section>
+            <h2><span class="method get">GET</span>/api/users/{id}</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Get a specific user by ID with ratings and comments.</p>
+
+            <div class="note">
+                ℹ️ <strong>New Feature:</strong> This endpoint now includes user ratings, average rating, and total
+                ratings count!
+            </div>
+
+            <h3>Role-Based Access</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can view any user</li>
+                <li><strong>Team Lead:</strong> Can only view their agents</li>
+                <li><strong>Agent:</strong> Forbidden (403)</li>
+                <li><strong>Client:</strong> Forbidden (403)</li>
+            </ul>
+
+            <h3>Response (200 OK)</h3>
+            <div class="note">
+                📝 <strong>Note:</strong> Non-admin users only see <code>public</code> ratings. Admins see all ratings
+                and each rating includes a <code>status</code> field.
+            </div>
+            <pre>{
     "id": 5,
     "name": "Jane Doe",
     "email": "jane@example.com",
@@ -165,58 +353,509 @@
     "team_lead_id": 2,
     "instagram_link": "https://instagram.com/jane",
     "tiktok_link": "https://tiktok.com/@jane",
-    "whatsapp_link": "https://wa.me/123456789"
-}
-        </pre>
-    </section>
+    "whatsapp_link": "https://wa.me/123456789",
+    "image": "users/abc123.jpg",
+    "created_at": "2026-02-09T09:51:23.000000Z",
+    "updated_at": "2026-02-09T09:51:23.000000Z",
+    "ratings": [
+        {
+            "id": 1,
+            "rating": 5,
+            "comment": "Excellent service and very professional!",
+            "status": "public",
+            "created_at": "2026-02-09T09:51:23.000000Z",
+            "rater": {
+                "id": 2,
+                "name": "John Smith",
+                "email": "john@example.com",
+                "role": "team_lead",
+                "image": "https://example.com/storage/users/john.jpg"
+            }
+        },
+        {
+            "id": 2,
+            "rating": 4,
+            "comment": "Great agent, very responsive",
+            "status": "public",
+            "created_at": "2026-02-08T14:30:00.000000Z",
+            "rater": {
+                "id": 3,
+                "name": "Sarah Johnson",
+                "email": "sarah@example.com",
+                "role": "admin",
+                "image": "https://example.com/storage/users/sarah.jpg"
+            }
+        }
+    ],
+    "average_rating": 4.75,
+    "total_ratings": 12
+}</pre>
 
-    <!-- Update User -->
-    <section>
-        <h2>PUT /api/users/{id}</h2>
-        <p class="endpoint">Description: Update user information (optional fields).</p>
-        <h3>Request Body</h3>
-        <pre>
-{
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+
+            <h3>Response (404 Not Found)</h3>
+            <pre>{
+    "message": "No query results for model [App\\Models\\User] {id}"
+}</pre>
+        </section>
+
+        <!-- Update User -->
+        <section>
+            <h2><span class="method put">PUT</span>/api/users/{id}</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Update user information. All fields are optional.</p>
+
+            <h3>Role-Based Access</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can update any user and change roles</li>
+                <li><strong>Team Lead:</strong> Can only update their agents (cannot change roles)</li>
+                <li><strong>Agent:</strong> Forbidden (403)</li>
+                <li><strong>Client:</strong> Forbidden (403)</li>
+            </ul>
+
+            <h3>Request Body (all fields optional)</h3>
+            <pre>{
     "name": "Jane Smith",
     "email": "janesmith@example.com",
     "password": "newpassword123",
-    "role": "agent",
+    "role": "team_lead",
     "phone": "+987654321",
     "instagram_link": "https://instagram.com/janesmith",
     "tiktok_link": "https://tiktok.com/@janesmith",
-    "whatsapp_link": "https://wa.me/987654321"
-}
-        </pre>
-        <h3>Response</h3>
-        <pre>
-{
+    "whatsapp_link": "https://wa.me/987654321",
+    "image": &lt;file upload&gt;
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>sometimes, string, max:255</td>
+                    <td>User's full name</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>sometimes, email, unique (except current user)</td>
+                    <td>User's email</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>sometimes, string, min:8</td>
+                    <td>New password</td>
+                </tr>
+                <tr>
+                    <td>role</td>
+                    <td>sometimes, in:client,agent,team_lead,admin</td>
+                    <td>User role (admin only)</td>
+                </tr>
+                <tr>
+                    <td>phone</td>
+                    <td>nullable, string, max:20</td>
+                    <td>Phone number</td>
+                </tr>
+                <tr>
+                    <td>instagram_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>Instagram profile URL</td>
+                </tr>
+                <tr>
+                    <td>tiktok_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>TikTok profile URL</td>
+                </tr>
+                <tr>
+                    <td>whatsapp_link</td>
+                    <td>nullable, url, max:255</td>
+                    <td>WhatsApp link</td>
+                </tr>
+                <tr>
+                    <td>image</td>
+                    <td>nullable, image, max:5120</td>
+                    <td>Profile image (max 5MB)</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
     "id": 5,
     "name": "Jane Smith",
     "email": "janesmith@example.com",
-    "role": "agent",
+    "role": "team_lead",
     "phone": "+987654321",
     "agent_id": null,
-    "team_lead_id": 2,
+    "team_lead_id": null,
     "instagram_link": "https://instagram.com/janesmith",
     "tiktok_link": "https://tiktok.com/@janesmith",
-    "whatsapp_link": "https://wa.me/987654321"
-}
-        </pre>
-    </section>
+    "whatsapp_link": "https://wa.me/987654321",
+    "image": "users/xyz789.jpg",
+    "created_at": "2026-02-09T09:51:23.000000Z",
+    "updated_at": "2026-02-09T10:15:00.000000Z"
+}</pre>
 
-    <!-- Delete User -->
-    <section>
-        <h2>DELETE /api/users/{id}</h2>
-        <p class="endpoint">Description: Delete a user.</p>
-        <h3>Response</h3>
-        <pre>
-{
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+        </section>
+
+        <!-- Delete User -->
+        <section>
+            <h2><span class="method delete">DELETE</span>/api/users/{id}</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <p class="endpoint">Delete a user. User's profile image is automatically deleted from storage.</p>
+
+            <h3>Role-Based Access</h3>
+            <ul>
+                <li><strong>Admin:</strong> Can delete any user</li>
+                <li><strong>Team Lead:</strong> Can only delete their agents</li>
+                <li><strong>Agent:</strong> Forbidden (403)</li>
+                <li><strong>Client:</strong> Forbidden (403)</li>
+            </ul>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
     "message": "Deleted successfully"
-}
-        </pre>
-    </section>
+}</pre>
 
-</div>
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden"
+}</pre>
+        </section>
+
+        <!-- Rate User (NEW) -->
+        <section>
+            <h2><span class="method post">POST</span>/api/users/{id}/rate</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <div class="note">
+                ⭐ <strong>New Endpoint:</strong> Rate users with 1-5 stars and optional comments!
+            </div>
+            <p class="endpoint">Submit or update a rating for a user. Only non-client users can rate.</p>
+
+            <h3>Business Rules</h3>
+            <ul>
+                <li>✅ <strong>Admins, Team Leads, and Agents</strong> can rate users</li>
+                <li>❌ <strong>Clients</strong> cannot rate users (403 Forbidden)</li>
+                <li>❌ Users <strong>cannot rate themselves</strong> (403 Forbidden)</li>
+                <li>📝 Each user can only submit <strong>one rating per user</strong> (updating is allowed)</li>
+                <li>⭐ Rating must be between <strong>1-5 stars</strong></li>
+                <li>💬 Comments are <strong>optional</strong> (max 1000 characters)</li>
+            </ul>
+
+            <h3>Request Body</h3>
+            <pre>{
+    "rating": 5,
+    "comment": "Excellent service and very professional! Highly recommended."
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>rating</td>
+                    <td>required, integer, min:1, max:5</td>
+                    <td>Star rating (1-5)</td>
+                </tr>
+                <tr>
+                    <td>comment</td>
+                    <td>nullable, string, max:1000</td>
+                    <td>Optional comment</td>
+                </tr>
+            </table>
+
+            <h3>Response (201 Created)</h3>
+            <pre>{
+    "message": "Rating submitted successfully",
+    "rating": {
+        "id": 1,
+        "rating": 5,
+        "comment": "Excellent service and very professional! Highly recommended.",
+        "created_at": "2026-02-09T09:51:23.000000Z",
+        "updated_at": "2026-02-09T09:51:23.000000Z"
+    }
+}</pre>
+
+            <h3>Response (403 Forbidden - Client trying to rate)</h3>
+            <pre>{
+    "message": "Clients cannot rate users"
+}</pre>
+
+            <h3>Response (403 Forbidden - Self-rating)</h3>
+            <pre>{
+    "message": "You cannot rate yourself"
+}</pre>
+
+            <h3>Response (404 Not Found)</h3>
+            <pre>{
+    "message": "No query results for model [App\\Models\\User] {id}"
+}</pre>
+        </section>
+
+        <!-- Get All Ratings (Admin Only) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/ratings</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong> - Only admins can access this endpoint</div>
+            <p class="endpoint">Get all ratings in the system for admin management purposes.</p>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>integer</td>
+                    <td>Page number (default: 1)</td>
+                </tr>
+                <tr>
+                    <td>per_page</td>
+                    <td>integer</td>
+                    <td>Items per page (default: 20)</td>
+                </tr>
+                <tr>
+                    <td>status</td>
+                    <td>string</td>
+                    <td>Filter by status: public, private, or hidden</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "data": [
+        {
+            "id": 1,
+            "rating": 5,
+            "comment": "Excellent service!",
+            "status": "public",
+            "created_at": "2026-02-09T09:51:23.000000Z",
+            "user": {
+                "id": 5,
+                "name": "Jane Doe",
+                "email": "jane@example.com",
+                "role": "agent"
+            },
+            "rater": {
+                "id": 2,
+                "name": "John Smith",
+                "email": "john@example.com",
+                "role": "team_lead"
+            }
+        },
+        {
+            "id": 2,
+            "rating": 3,
+            "comment": "Inappropriate content here...",
+            "status": "hidden",
+            "created_at": "2026-02-08T14:30:00.000000Z",
+            "user": {
+                "id": 7,
+                "name": "Bob Wilson",
+                "email": "bob@example.com",
+                "role": "agent"
+            },
+            "rater": {
+                "id": 8,
+                "name": "Alice Brown",
+                "email": "alice@example.com",
+                "role": "client"
+            }
+        }
+    ],
+    "total": 45,
+    "page": 1,
+    "per_page": 20
+}</pre>
+
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden - Admin access required"
+}</pre>
+        </section>
+
+        <!-- Update Rating Status (Admin Only) -->
+        <section>
+            <h2><span class="method put">PATCH</span>/api/ratings/{id}/status</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong> - Only admins can access this endpoint</div>
+            <div class="note">
+                🎯 <strong>Rating Visibility Control:</strong> Admins can control which ratings are visible to the
+                public!
+            </div>
+            <p class="endpoint">Update the visibility status of a rating.</p>
+
+            <h3>Status Options</h3>
+            <table>
+                <tr>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>public</td>
+                    <td>✅ Visible to everyone - included in average rating calculations</td>
+                </tr>
+                <tr>
+                    <td>private</td>
+                    <td>🔒 Only visible to admins - not included in public average</td>
+                </tr>
+                <tr>
+                    <td>hidden</td>
+                    <td>👁️ Hidden from public view - only admins can see it</td>
+                </tr>
+            </table>
+
+            <h3>Request Body</h3>
+            <pre>{
+    "status": "hidden"
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>status</td>
+                    <td>required, in:public,private,hidden</td>
+                    <td>New visibility status</td>
+                </tr>
+            </table>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "message": "Rating status updated successfully",
+    "rating": {
+        "id": 2,
+        "status": "hidden",
+        "rating": 3,
+        "comment": "Inappropriate content here...",
+        "user_id": 7,
+        "rater_id": 8
+    }
+}</pre>
+
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden - Admin access required"
+}</pre>
+
+            <h3>Response (404 Not Found)</h3>
+            <pre>{
+    "message": "No query results for model [App\\Models\\UserRating] {id}"
+}</pre>
+        </section>
+
+        <!-- Delete Rating (Admin Only) -->
+        <section>
+            <h2><span class="method delete">DELETE</span>/api/ratings/{id}</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong> - Only admins can access this endpoint</div>
+            <p class="endpoint">Permanently delete a rating from the database.</p>
+
+            <div class="note">
+                ⚠️ <strong>Warning:</strong> This action is permanent and cannot be undone. Consider using "hidden"
+                status instead if you want to preserve the data.
+            </div>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "message": "Rating deleted successfully"
+}</pre>
+
+            <h3>Response (403 Forbidden)</h3>
+            <pre>{
+    "message": "Forbidden - Admin access required"
+}</pre>
+
+            <h3>Response (404 Not Found)</h3>
+            <pre>{
+    "message": "No query results for model [App\\Models\\UserRating] {id}"
+}</pre>
+        </section>
+
+        <!-- Additional Information -->
+        <section>
+            <h2>📋 Additional Information</h2>
+
+            <h3>User Roles</h3>
+            <table>
+                <tr>
+                    <th>Role</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>admin</td>
+                    <td>Full system access, can manage all users and real estates</td>
+                </tr>
+                <tr>
+                    <td>team_lead</td>
+                    <td>Can manage agents, view team performance, create agents</td>
+                </tr>
+                <tr>
+                    <td>agent</td>
+                    <td>Can manage own real estates and clients</td>
+                </tr>
+                <tr>
+                    <td>client</td>
+                    <td>Limited access, can view own data</td>
+                </tr>
+            </table>
+
+            <h3>Authentication</h3>
+            <p>All endpoints require a Sanctum authentication token in the header:</p>
+            <pre>Authorization: Bearer {your-token-here}</pre>
+
+            <h3>Image Upload</h3>
+            <p>When uploading images, use <code>multipart/form-data</code> encoding:</p>
+            <ul>
+                <li>Accepted formats: jpg, jpeg, png, gif, webp</li>
+                <li>Maximum size: 5MB (5120 KB)</li>
+                <li>Images are stored in <code>storage/app/public/users/</code></li>
+                <li>Old images are automatically deleted when updating</li>
+            </ul>
+
+            <h3>Rating System</h3>
+            <ul>
+                <li>Ratings are stored in the <code>user_ratings</code> table</li>
+                <li>Each rating has a <strong>status</strong>: public, private, or hidden</li>
+                <li><strong>Public ratings</strong> are visible to everyone and included in average calculations</li>
+                <li><strong>Private/Hidden ratings</strong> are only visible to admins</li>
+                <li>Average rating is calculated dynamically from <strong>public ratings only</strong></li>
+                <li>Ratings include rater information (name, email, role, image)</li>
+                <li>Updating a rating overwrites the previous rating from the same rater</li>
+                <li>Admins can moderate ratings by changing status or deleting them</li>
+            </ul>
+
+            <h3>Rating Status Workflow</h3>
+            <ol>
+                <li>User submits a rating → Status is set to <code>public</code> by default</li>
+                <li>Admin reviews ratings via <code>GET /api/ratings</code></li>
+                <li>If inappropriate content is found:
+                    <ul>
+                        <li>Set to <code>hidden</code> to hide from public (preserves data)</li>
+                        <li>Or <code>DELETE</code> to permanently remove</li>
+                    </ul>
+                </li>
+                <li>Public users only see ratings with <code>public</code> status</li>
+                <li>Admins see all ratings regardless of status</li>
+            </ol>
+        </section>
+
+    </div>
 
 </body>
+
 </html>
