@@ -1,82 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auth API Documentation</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f7fa;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #10b981;
-        color: white;
-        padding: 2rem;
-        text-align: center;
-    }
-    .container {
-        max-width: 1000px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-    }
-    section {
-        background: white;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    h2 {
-        color: #10b981;
-        margin-top: 0;
-    }
-    pre {
-        background: #f3f4f6;
-        padding: 1rem;
-        overflow-x: auto;
-        border-radius: 6px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 0.8rem;
-    }
-    th {
-        background-color: #d1fae5;
-    }
-    .endpoint {
-        font-weight: bold;
-        color: #059669;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #10b981;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #10b981;
+            margin-top: 0;
+        }
+
+        pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+        }
+
+        th {
+            background-color: #d1fae5;
+        }
+
+        .endpoint {
+            font-weight: bold;
+            color: #059669;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Auth API Documentation</h1>
-</header>
+    <header>
+        <h1>Auth API Documentation</h1>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-<!-- REGISTER -->
-<section>
-    <h2>POST /api/register</h2>
-    <p class="endpoint">
-        Register new client user (role is forced to <code>client</code>).  
-        Supports profile image upload.
-    </p>
+        <!-- REGISTER -->
+        <section>
+            <h2>POST /api/register</h2>
+            <p class="endpoint">
+                Register new client user (role is forced to <code>client</code>).
+                Supports profile image upload.
+            </p>
 
-    <h3>Request (multipart/form-data)</h3>
-    <pre>{
+            <h3>Request (multipart/form-data)</h3>
+            <pre>{
   "name": "John Doe",
   "email": "john@example.com",
   "password": "password123",
@@ -84,8 +96,8 @@
   "image": "file (optional)"
 }</pre>
 
-    <h3>Response (201 Created)</h3>
-    <pre>{
+            <h3>Response (201 Created)</h3>
+            <pre>{
   "message": "Account created. Please verify your email.",
   "user": {
     "id": 10,
@@ -97,24 +109,24 @@
     "email_verified_at": null
   }
 }</pre>
-</section>
+        </section>
 
-<!-- LOGIN -->
-<section>
-    <h2>POST /api/login</h2>
-    <p class="endpoint">
-        Login using email & password.  
-        Email must be verified.
-    </p>
+        <!-- LOGIN -->
+        <section>
+            <h2>POST /api/login</h2>
+            <p class="endpoint">
+                Login using email & password.
+                Email must be verified.
+            </p>
 
-    <h3>Request</h3>
-    <pre>{
+            <h3>Request</h3>
+            <pre>{
   "email": "john@example.com",
   "password": "password123"
 }</pre>
 
-    <h3>Response (200 OK)</h3>
-    <pre>{
+            <h3>Response (200 OK)</h3>
+            <pre>{
   "token": "1|sanctumtoken...",
   "user": {
     "id": 10,
@@ -124,121 +136,162 @@
   }
 }</pre>
 
-    <h3>Errors</h3>
-    <pre>
+            <h3>Errors</h3>
+            <pre>
 401 - Invalid credentials
 403 - Please verify your email before login
     </pre>
-</section>
+        </section>
 
-<!-- LOGOUT -->
-<section>
-    <h2>POST /api/logout</h2>
-    <p class="endpoint">Revoke current Sanctum token</p>
+        <!-- LOGOUT -->
+        <section>
+            <h2>POST /api/logout</h2>
+            <p class="endpoint">Revoke current Sanctum token</p>
 
-    <h3>Headers</h3>
-    <table>
-        <tr><th>Authorization</th><td>Bearer &lt;token&gt;</td></tr>
-    </table>
+            <h3>Headers</h3>
+            <table>
+                <tr>
+                    <th>Authorization</th>
+                    <td>Bearer &lt;token&gt;</td>
+                </tr>
+            </table>
 
-    <h3>Response</h3>
-    <pre>{ "message": "Logged out" }</pre>
-</section>
+            <h3>Response</h3>
+            <pre>{ "message": "Logged out" }</pre>
+        </section>
 
-<!-- EMAIL VERIFICATION -->
-<section>
-    <h2>GET /api/email/verify/{id}/{hash}</h2>
-    <p class="endpoint">
-        Verify user email.  
-        Redirects to frontend after success.
-    </p>
+        <!-- EMAIL VERIFICATION -->
+        <section>
+            <h2>GET /api/email/verify/{id}/{hash}</h2>
+            <p class="endpoint">
+                Verify user email.
+                Redirects to frontend after success.
+            </p>
 
-    <h3>Success</h3>
-    <pre>Redirect → /login?verified=1</pre>
+            <h3>Success</h3>
+            <pre>Redirect → /login?verified=1</pre>
 
-    <h3>Errors</h3>
-    <pre>
+            <h3>Errors</h3>
+            <pre>
 404 - User not found
 403 - Invalid verification link
     </pre>
-</section>
+        </section>
 
-<!-- SEND OTP -->
-<section>
-    <h2>POST /api/forgot-password</h2>
-    <p class="endpoint">Send OTP to email for password reset</p>
+        <!-- SEND OTP -->
+        <section>
+            <h2>POST /api/forgot-password</h2>
+            <p class="endpoint">Send OTP to email for password reset</p>
 
-    <h3>Request</h3>
-    <pre>{ "email": "john@example.com" }</pre>
+            <h3>Request</h3>
+            <pre>{ "email": "john@example.com" }</pre>
 
-    <h3>Response</h3>
-    <pre>{ "message": "OTP sent to email" }</pre>
-</section>
+            <h3>Response</h3>
+            <pre>{ "message": "OTP sent to email" }</pre>
+        </section>
 
-<!-- VERIFY OTP -->
-<section>
-    <h2>POST /api/verify-otp</h2>
+        <!-- VERIFY OTP -->
+        <section>
+            <h2>POST /api/verify-otp</h2>
 
-    <h3>Request</h3>
-    <pre>{
+            <h3>Request</h3>
+            <pre>{
   "email": "john@example.com",
   "otp": "123456"
 }</pre>
 
-    <h3>Responses</h3>
-    <pre>
+            <h3>Responses</h3>
+            <pre>
 200 - OTP verified
 400 - Invalid OTP
 400 - OTP expired
     </pre>
-</section>
+        </section>
 
-<!-- RESET PASSWORD -->
-<section>
-    <h2>POST /api/reset-password</h2>
+        <!-- RESET PASSWORD -->
+        <section>
+            <h2>POST /api/reset-password</h2>
 
-    <h3>Request</h3>
-    <pre>{
+            <h3>Request</h3>
+            <pre>{
   "email": "john@example.com",
   "otp": "123456",
   "password": "newpassword123"
 }</pre>
 
-    <h3>Response</h3>
-    <pre>{ "message": "Password reset successful" }</pre>
-</section>
+            <h3>Response</h3>
+            <pre>{ "message": "Password reset successful" }</pre>
+        </section>
 
-<!-- UPDATE PROFILE -->
-<section>
-    <h2>POST /api/profile</h2>
-    <p class="endpoint">
-        Update authenticated user's profile.  
-        Role cannot be updated.
-    </p>
+        <!-- GET PROFILE -->
+        <section>
+            <h2>GET /api/profile</h2>
+            <p class="endpoint">
+                Get authenticated user's profile data.
+            </p>
 
-    <h3>Headers</h3>
-    <table>
-        <tr><th>Authorization</th><td>Bearer &lt;token&gt;</td></tr>
-    </table>
+            <h3>Headers</h3>
+            <table>
+                <tr>
+                    <th>Authorization</th>
+                    <td>Bearer &lt;token&gt;</td>
+                </tr>
+            </table>
 
-    <h3>Request (multipart/form-data)</h3>
-    <pre>{
+            <h3>Response (200 OK)</h3>
+            <pre>{
+  "user": {
+    "id": 10,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "agent",
+    "phone": "01123456789",
+    "instagram_link": "...",
+    "tiktok_link": "...",
+    "whatsapp_link": "...",
+    "bio": "Expert in luxury villas.",
+    "image": "users/avatar.png",
+    "average_rating": 4.5
+  }
+}</pre>
+        </section>
+
+        <!-- UPDATE PROFILE -->
+        <section>
+            <h2>POST /api/update-profile</h2>
+            <p class="endpoint">
+                Update authenticated user's profile.
+                Role cannot be updated.
+            </p>
+
+            <h3>Headers</h3>
+            <table>
+                <tr>
+                    <th>Authorization</th>
+                    <td>Bearer &lt;token&gt;</td>
+                </tr>
+            </table>
+
+            <h3>Request (multipart/form-data)</h3>
+            <pre>{
   "name": "John Doe",
   "phone": "01123456789",
   "password": "optional",
   "instagram_link": "https://instagram.com/...",
   "tiktok_link": "https://tiktok.com/...",
   "whatsapp_link": "https://wa.me/...",
+  "bio": "New bio content",
   "image": "file (optional)"
 }</pre>
 
-    <h3>Response</h3>
-    <pre>{
+            <h3>Response</h3>
+            <pre>{
   "message": "Profile updated successfully",
   "user": { ... }
 }</pre>
-</section>
+        </section>
 
-</div>
+    </div>
 </body>
+
 </html>
