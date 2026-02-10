@@ -341,8 +341,13 @@
 
             <h3>Response (200 OK)</h3>
             <div class="note">
-                📝 <strong>Note:</strong> Non-admin users only see <code>public</code> ratings. Admins see all ratings
-                and each rating includes a <code>status</code> field.
+                📝 <strong>Note:</strong> Visibility depends on who is viewing:
+                <ul>
+                    <li><strong>Admin:</strong> Sees all ratings (public, private, hidden) with status field</li>
+                    <li><strong>Rated User (viewing own profile):</strong> Sees public and private ratings with status
+                        field</li>
+                    <li><strong>Other Users:</strong> See only public ratings without status field</li>
+                </ul>
             </div>
             <pre>{
     "id": 5,
@@ -377,19 +382,19 @@
             "id": 2,
             "rating": 4,
             "comment": "Great agent, very responsive",
-            "status": "public",
+            "status": "private",
             "created_at": "2026-02-08T14:30:00.000000Z",
             "rater": {
                 "id": 3,
                 "name": "Sarah Johnson",
                 "email": "sarah@example.com",
-                "role": "admin",
+                "role": "client",
                 "image": "https://example.com/storage/users/sarah.jpg"
             }
         }
     ],
     "average_rating": 4.75,
-    "total_ratings": 12
+    "total_ratings": 8
 }</pre>
 
             <h3>Response (403 Forbidden)</h3>
@@ -537,18 +542,21 @@
             <h2><span class="method post">POST</span>/api/users/{id}/rate</h2>
             <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
             <div class="note">
-                ⭐ <strong>New Endpoint:</strong> Rate users with 1-5 stars and optional comments!
+                ⭐ <strong>Updated Endpoint:</strong> Rate users with 1-5 stars and optional comments! Now ALL
+                authenticated users can rate.
             </div>
-            <p class="endpoint">Submit or update a rating for a user. Only non-client users can rate.</p>
+            <p class="endpoint">Submit or update a rating for a user. Ratings are <strong>private by default</strong>.
+            </p>
 
             <h3>Business Rules</h3>
             <ul>
-                <li>✅ <strong>Admins, Team Leads, and Agents</strong> can rate users</li>
-                <li>❌ <strong>Clients</strong> cannot rate users (403 Forbidden)</li>
+                <li>✅ <strong>ALL authenticated users</strong> (including clients) can rate users</li>
                 <li>❌ Users <strong>cannot rate themselves</strong> (403 Forbidden)</li>
                 <li>📝 Each user can only submit <strong>one rating per user</strong> (updating is allowed)</li>
                 <li>⭐ Rating must be between <strong>1-5 stars</strong></li>
                 <li>💬 Comments are <strong>optional</strong> (max 1000 characters)</li>
+                <li>🔒 New ratings are <strong>private by default</strong> (visible only to admin and rated user)</li>
+                <li>👁️ Rated user can choose to make their ratings <strong>public</strong></li>
             </ul>
 
             <h3>Request Body</h3>
@@ -588,12 +596,7 @@
     }
 }</pre>
 
-            <h3>Response (403 Forbidden - Client trying to rate)</h3>
-            <pre>{
-    "message": "Clients cannot rate users"
-}</pre>
-
-            <h3>Response (403 Forbidden - Self-rating)</h3>
+            <h3>Response (403 Forbidden - Self-rating attempt)</h3>
             <pre>{
     "message": "You cannot rate yourself"
 }</pre>
@@ -602,6 +605,8 @@
             <pre>{
     "message": "No query results for model [App\\Models\\User] {id}"
 }</pre>
+
+
         </section>
 
         <!-- Get All Ratings (Admin Only) -->
@@ -690,49 +695,60 @@
         <!-- Update Rating Status (Admin Only) -->
         <section>
             <h2><span class="method put">PATCH</span>/api/ratings/{id}/status</h2>
-            <div class="auth-required">🔒 <strong>Admin Only</strong> - Only admins can access this endpoint</div>
+            <div class="auth-required">🔒 <strong>Admin or Rated User</strong> - Admin or the user who received the
+                rating can access this endpoint</div>
             <div class="note">
-                🎯 <strong>Rating Visibility Control:</strong> Admins can control which ratings are visible to the
-                public!
+                🎯 <strong>Rating Visibility Control:</strong> Both admins and rated users can control which ratings are
+                visible to the public!
             </div>
-            <p class="endpoint">Update the visibility status of a rating.</p>
+            <p class="endpoint">Update the visibility status of a rating. Admins have full control, rated users can
+                toggle between public/private.</p>
 
             <h3>Status Options</h3>
             <table>
                 <tr>
                     <th>Status</th>
                     <th>Description</th>
+                    <th>Who Can Set</th>
                 </tr>
                 <tr>
                     <td>public</td>
                     <td>✅ Visible to everyone - included in average rating calculations</td>
+                    <td>Admin, Rated User</td>
                 </tr>
                 <tr>
                     <td>private</td>
-                    <td>🔒 Only visible to admins - not included in public average</td>
+                    <td>🔒 Only visible to admin and rated user - not included in public average (DEFAULT)</td>
+                    <td>Admin, Rated User</td>
                 </tr>
                 <tr>
                     <td>hidden</td>
-                    <td>👁️ Hidden from public view - only admins can see it</td>
+                    <td>👁️ Hidden from everyone except admin - used for inappropriate content</td>
+                    <td>Admin Only</td>
                 </tr>
             </table>
 
-            <h3>Request Body</h3>
+            <h3>Request Body (Admin)</h3>
             <pre>{
-    "status": "hidden"
+    "status": "hidden"  // Can be: public, private, or hidden
+}</pre>
+
+            <h3>Request Body (Rated User)</h3>
+            <pre>{
+    "status": "public"  // Can only be: public or private
 }</pre>
 
             <h3>Validation Rules</h3>
             <table>
                 <tr>
                     <th>Field</th>
-                    <th>Rules</th>
-                    <th>Description</th>
+                    <th>Rules (Admin)</th>
+                    <th>Rules (Rated User)</th>
                 </tr>
                 <tr>
                     <td>status</td>
                     <td>required, in:public,private,hidden</td>
-                    <td>New visibility status</td>
+                    <td>required, in:public,private</td>
                 </tr>
             </table>
 
@@ -749,9 +765,19 @@
     }
 }</pre>
 
-            <h3>Response (403 Forbidden)</h3>
+            <h3>Response (403 Forbidden - Not authorized)</h3>
             <pre>{
-    "message": "Forbidden - Admin access required"
+    "message": "Forbidden - You can only manage ratings on your own profile"
+}</pre>
+
+            <h3>Response (422 Validation Error - Rated user trying to hide)</h3>
+            <pre>{
+    "message": "The selected status is invalid.",
+    "errors": {
+        "status": [
+            "The selected status is invalid."
+        ]
+    }
 }</pre>
 
             <h3>Response (404 Not Found)</h3>
@@ -831,27 +857,38 @@
             <h3>Rating System</h3>
             <ul>
                 <li>Ratings are stored in the <code>user_ratings</code> table</li>
-                <li>Each rating has a <strong>status</strong>: public, private, or hidden</li>
+                <li>Each rating has a <strong>status</strong>: public, private (default), or hidden</li>
+                <li><strong>ALL authenticated users</strong> (including clients) can rate other users</li>
+                <li><strong>New ratings are PRIVATE by default</strong> - visible only to admin and rated user</li>
                 <li><strong>Public ratings</strong> are visible to everyone and included in average calculations</li>
-                <li><strong>Private/Hidden ratings</strong> are only visible to admins</li>
+                <li><strong>Private ratings</strong> are visible to admin and rated user only</li>
+                <li><strong>Hidden ratings</strong> are only visible to admins (for inappropriate content)</li>
                 <li>Average rating is calculated dynamically from <strong>public ratings only</strong></li>
                 <li>Ratings include rater information (name, email, role, image)</li>
                 <li>Updating a rating overwrites the previous rating from the same rater</li>
-                <li>Admins can moderate ratings by changing status or deleting them</li>
+                <li><strong>Both admin and rated user</strong> can manage rating visibility (public/private)</li>
+                <li>Only <strong>admin can hide or delete</strong> ratings</li>
             </ul>
 
             <h3>Rating Status Workflow</h3>
             <ol>
-                <li>User submits a rating → Status is set to <code>public</code> by default</li>
-                <li>Admin reviews ratings via <code>GET /api/ratings</code></li>
+                <li>User submits a rating → Status is set to <code>private</code> by default</li>
+                <li>Rated user can view their ratings and choose to make them <code>public</code></li>
+                <li>Admin reviews all ratings via <code>GET /api/ratings</code></li>
                 <li>If inappropriate content is found:
                     <ul>
-                        <li>Set to <code>hidden</code> to hide from public (preserves data)</li>
-                        <li>Or <code>DELETE</code> to permanently remove</li>
+                        <li>Admin sets to <code>hidden</code> to hide from rated user (preserves data)</li>
+                        <li>Or admin uses <code>DELETE</code> to permanently remove</li>
                     </ul>
                 </li>
-                <li>Public users only see ratings with <code>public</code> status</li>
-                <li>Admins see all ratings regardless of status</li>
+                <li>Visibility rules:
+                    <ul>
+                        <li><strong>Public users:</strong> See only <code>public</code> ratings</li>
+                        <li><strong>Rated user:</strong> Sees <code>public</code> and <code>private</code> ratings on
+                            their profile</li>
+                        <li><strong>Admins:</strong> See all ratings regardless of status</li>
+                    </ul>
+                </li>
             </ol>
         </section>
 
