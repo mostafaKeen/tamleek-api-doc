@@ -349,6 +349,16 @@
                     <li><strong>Other Users:</strong> See only public ratings without status field</li>
                 </ul>
             </div>
+
+            <div class="note">
+                📊 <strong>Portfolio Views:</strong> The <code>portfolio_views</code> field is only visible to:
+                <ul>
+                    <li><strong>Admins:</strong> Can see portfolio views for all users</li>
+                    <li><strong>Team Leads:</strong> Can see portfolio views only for their agents</li>
+                    <li><strong>Others:</strong> Field is not included in response</li>
+                </ul>
+                This field is <strong>read-only</strong> and cannot be edited via any API endpoint.
+            </div>
             <pre>{
     "id": 5,
     "name": "Jane Doe",
@@ -363,6 +373,7 @@
     "image": "users/abc123.jpg",
     "created_at": "2026-02-09T09:51:23.000000Z",
     "updated_at": "2026-02-09T09:51:23.000000Z",
+    "portfolio_views": 142,
     "ratings": [
         {
             "id": 1,
