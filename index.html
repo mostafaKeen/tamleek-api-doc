@@ -1,124 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API Documentation Index</title>
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #e0e7ff 0%, #f5f7fa 100%);
-        color: #333;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        position: relative;
-        overflow-x: hidden;
-    }
-    body::before {
-        content: '';
-        position: absolute; top: -50%; right: -20%;
-        width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(59,130,246,.1) 0%, transparent 70%);
-        border-radius: 50%; z-index: 0;
-    }
-    body::after {
-        content: '';
-        position: absolute; bottom: -30%; left: -10%;
-        width: 500px; height: 500px;
-        background: radial-gradient(circle, rgba(37,99,235,.08) 0%, transparent 70%);
-        border-radius: 50%; z-index: 0;
-    }
-    .container {
-        position: relative; z-index: 1;
-        background: white; border-radius: 20px;
-        padding: 3rem 2.5rem;
-        box-shadow: 0 20px 60px rgba(59,130,246,.15);
-        max-width: 600px; width: 100%;
-        animation: fadeInUp .6s ease-out;
-    }
-    @keyframes fadeInUp { from {opacity:0; transform:translateY(30px)} to {opacity:1; transform:translateY(0)} }
-    h1 {
-        text-align: center; font-size: 2.5rem; margin-bottom: .5rem;
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-    .nav-list li { animation: slideIn .5s ease-out backwards; }
-    .nav-list li:nth-child(1){animation-delay:.1s}
-    .nav-list li:nth-child(2){animation-delay:.2s}
-    .nav-list li:nth-child(3){animation-delay:.3s}
-    .nav-list li:nth-child(4){animation-delay:.4s}
-    .nav-list li:nth-child(5){animation-delay:.5s}
-    .nav-list li:nth-child(6){animation-delay:.6s}
-    .nav-list li:nth-child(7){animation-delay:.7s} /* Company Details */
-    .nav-list li:nth-child(8){animation-delay:.8s} /* Career */
-    @keyframes slideIn { from{opacity:0; transform:translateX(-20px)} to{opacity:1; transform:translateX(0)} }
-    .nav-list a {
-        text-decoration: none; color: white;
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        padding: 1rem 1.5rem; border-radius: 12px;
-        display: flex; align-items: center; justify-content: space-between;
-        box-shadow: 0 4px 15px rgba(59,130,246,.2);
-        transition: all .3s ease; position: relative; overflow: hidden;
-    }
-    .nav-list a:hover { transform: translateX(5px); box-shadow: 0 6px 25px rgba(59,130,246,.35); }
-    .nav-list a::after { content:'→'; font-size:1.2rem; transition: transform .3s ease; }
-    .nav-list a:hover::after { transform: translateX(5px); }
-    .icon { width:24px; height:24px; margin-right:.75rem; opacity:.9; }
-    .link-content { display:flex; align-items:center; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation Index</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f5f7fa 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, .1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, .15);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp .6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: .5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-list li {
+            animation: slideIn .5s ease-out backwards;
+        }
+
+        .nav-list li:nth-child(1) {
+            animation-delay: .1s
+        }
+
+        .nav-list li:nth-child(2) {
+            animation-delay: .2s
+        }
+
+        .nav-list li:nth-child(3) {
+            animation-delay: .3s
+        }
+
+        .nav-list li:nth-child(4) {
+            animation-delay: .4s
+        }
+
+        .nav-list li:nth-child(5) {
+            animation-delay: .5s
+        }
+
+        .nav-list li:nth-child(6) {
+            animation-delay: .6s
+        }
+
+        .nav-list li:nth-child(7) {
+            animation-delay: .7s
+        }
+
+        /* Company Details */
+        .nav-list li:nth-child(8) {
+            animation-delay: .8s
+        }
+
+        /* Career */
+        .nav-list li:nth-child(9) {
+            animation-delay: .9s
+        }
+
+        /* Sections */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, .2);
+            transition: all .3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-list a:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, .35);
+        }
+
+        .nav-list a::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: transform .3s ease;
+        }
+
+        .nav-list a:hover::after {
+            transform: translateX(5px);
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: .75rem;
+            opacity: .9;
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>API Documentation Index</h1>
+    <div class="container">
+        <h1>API Documentation Index</h1>
 
-    <ul class="nav-list">
-        <li><a href="auth.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>Authentication</span></a></li>
+        <ul class="nav-list">
+            <li><a href="auth.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>Authentication</span></a></li>
 
-        <li><a href="communication.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>Communication Controller</span></a></li>
+            <li><a href="communication.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>Communication Controller</span></a></li>
 
-        <li><a href="users managment.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-            </svg>User Management</span></a></li>
+            <li><a href="users managment.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                        </svg>User Management</span></a></li>
 
-        <li><a href="real states.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-            </svg>Real Estate</span></a></li>
+            <li><a href="real states.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>Real Estate</span></a></li>
 
-        <li><a href="ads.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-            </svg>Ads</span></a></li>
+            <li><a href="ads.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        </svg>Ads</span></a></li>
 
-        <!-- NEW: Company Details -->
-        <li><a href="company.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 21h18"></path>
-                <path d="M5 21V7l7-4 7 4v14"></path>
-                <path d="M9 21v-6h6v6"></path>
-            </svg>Company Details</span></a></li>
+            <!-- NEW: Company Details -->
+            <li><a href="company.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h18"></path>
+                            <path d="M5 21V7l7-4 7 4v14"></path>
+                            <path d="M9 21v-6h6v6"></path>
+                        </svg>Company Details</span></a></li>
 
-        <!-- Career -->
-        <li><a href="career.html" target="_blank"><span class="link-content">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7v7c0 5 5 9 10 9s10-4 10-9V7l-10-5z"></path>
-            </svg>Career</span></a></li>
-    </ul>
-</div>
+            <!-- Career -->
+            <li><a href="career.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7v7c0 5 5 9 10 9s10-4 10-9V7l-10-5z"></path>
+                        </svg>Career</span></a></li>
+
+            <!-- Sections & Subsections -->
+            <li><a href="sections.html" target="_blank"><span class="link-content">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>Sections & CMS Content</span></a></li>
+        </ul>
+    </div>
 </body>
+
 </html>

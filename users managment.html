@@ -609,6 +609,29 @@
 
         </section>
 
+        <!-- Check Rating Status (NEW) -->
+        <section>
+            <h2><span class="method get">GET</span>/api/users/{id}/rate/check</h2>
+            <div class="auth-required">🔒 <strong>Authentication Required</strong> - Sanctum token needed</div>
+            <div class="note">
+                🔍 <strong>Check Before Rating:</strong> Check if the current authenticated user has already rated the
+                target user.
+            </div>
+            <p class="endpoint">Returns the rating data if it exists, or <code>false</code> if not rated yet.</p>
+
+            <h3>Response (200 OK - Already Rated)</h3>
+            <pre>{
+    "id": 1,
+    "rating": 5,
+    "comment": "Excellent service!",
+    "created_at": "2026-02-13T10:30:00.000000Z",
+    "updated_at": "2026-02-13T10:30:00.000000Z"
+}</pre>
+
+            <h3>Response (200 OK - Not Rated Yet)</h3>
+            <pre>false</pre>
+        </section>
+
         <!-- Get All Ratings (Admin Only) -->
         <section>
             <h2><span class="method get">GET</span>/api/ratings</h2>

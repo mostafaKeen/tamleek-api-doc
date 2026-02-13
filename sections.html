@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sections & Subsections API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0d9488;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #0d9488;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #0f766e;
+            margin-top: 1.5rem;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0fdfa;
+        }
+
+        .endpoint {
+            font-weight: bold;
+            color: #0f766e;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .get {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .post {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .put {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .delete {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .auth-required {
+            background-color: #fef3c7;
+            padding: 0.5rem;
+            border-left: 4px solid #f59e0b;
+            margin: 1rem 0;
+        }
+
+        .public-access {
+            background-color: #d1fae5;
+            padding: 0.5rem;
+            border-left: 4px solid #10b981;
+            margin: 1rem 0;
+        }
+
+        .note {
+            background-color: #dbeafe;
+            padding: 0.5rem;
+            border-left: 4px solid #3b82f6;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📚 Sections & Subsections API Documentation</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- List Sections -->
+        <section>
+            <h2><span class="method get">GET</span>/api/sections</h2>
+            <div class="public-access">🌍 <strong>Public Access</strong> - No authentication required</div>
+            <p class="endpoint">List all sections with their nested subsections. Used for CMS/UI construction.</p>
+
+            <h3>Response (200 OK)</h3>
+            <pre>[
+    {
+        "id": 1,
+        "section_name": "about-us",
+        "p1": "First paragraph text...",
+        "p2": "Second paragraph text...",
+        "p3": "Third paragraph text...",
+        "created_at": "2026-02-13T10:20:00.000000Z",
+        "updated_at": "2026-02-13T10:20:00.000000Z",
+        "subsections": [
+            {
+                "id": 1,
+                "section_id": 1,
+                "content": "Detailed content for this subsection...",
+                "created_at": "2026-02-13T10:21:00.000000Z"
+            }
+        ]
+    }
+]</pre>
+        </section>
+
+        <!-- Show Section -->
+        <section>
+            <h2><span class="method get">GET</span>/api/sections/{idOrName}</h2>
+            <div class="public-access">🌍 <strong>Public Access</strong> - No authentication required</div>
+            <p class="endpoint">Get a specific section by its numeric <strong>ID</strong> or unique
+                <strong>section_name</strong>.</p>
+
+            <div class="note">
+                💡 <strong>Frontend Tip:</strong> Use the name (e.g., <code>/api/sections/services</code>) to avoid
+                hardcoding database IDs.
+            </div>
+
+            <h3>Response (200 OK)</h3>
+            <pre>{
+    "id": 1,
+    "section_name": "about-us",
+    "p1": "...",
+    "p2": "...",
+    "p3": "...",
+    "subsections": [...]
+}</pre>
+        </section>
+
+        <!-- Create Section -->
+        <section>
+            <h2><span class="method post">POST</span>/api/sections</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong> - Sanctum token + Admin role</div>
+            <p class="endpoint">Create a new section.</p>
+
+            <h3>Request Body</h3>
+            <pre>{
+    "section_name": "services",
+    "p1": "Leading real estate services...",
+    "p2": "Optional second paragraph",
+    "p3": "Optional third paragraph"
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>section_name</td>
+                    <td>required, string, unique</td>
+                    <td>Unique slug/name for the section</td>
+                </tr>
+                <tr>
+                    <td>p1</td>
+                    <td>nullable, string</td>
+                    <td>First block of text</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- List Subsections -->
+        <section>
+            <h2><span class="method get">GET</span>/api/subsections</h2>
+            <div class="public-access">🌍 <strong>Public Access</strong> - No authentication required</div>
+            <p class="endpoint">List subsections with optional filtering.</p>
+
+            <h3>Query Parameters</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>section_id</td>
+                    <td>integer</td>
+                    <td>Filter by Section ID</td>
+                </tr>
+                <tr>
+                    <td>section_name</td>
+                    <td>string</td>
+                    <td>Filter by Section Name (e.g., <code>?section_name=about-us</code>)</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Create Subsection -->
+        <section>
+            <h2><span class="method post">POST</span>/api/subsections</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong> - Sanctum token + Admin role</div>
+            <p class="endpoint">Create a new subsection linked to a section.</p>
+
+            <h3>Request Body</h3>
+            <pre>{
+    "section_id": 1,
+    "content": "This is the HTML or long text content of the subsection."
+}</pre>
+
+            <h3>Validation Rules</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Rules</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>section_id</td>
+                    <td>required, exists:sections,id</td>
+                    <td>ID of the parent section</td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td>required, string</td>
+                    <td>Long text or HTML content</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Delete Section/Subsection -->
+        <section>
+            <h2><span class="method delete">DELETE</span>/api/sections/{id}</h2>
+            <div class="auth-required">🔒 <strong>Admin Only</strong></div>
+            <p class="endpoint">Deleting a section will <strong>cascade delete</strong> all its subsections.</p>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
