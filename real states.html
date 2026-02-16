@@ -203,6 +203,10 @@
             "property_details": "Luxury villa with sea view",
             "description": "Detailed property description",
             "area_sqft": 3500,
+            "area_name": "الشارقة - المجاز",
+            "area_name_id": 62,
+            "google_map_url": "https://maps.google.com/...",
+            "price_per_foot": 120,
             "images": [
                 "https://example.com/image1.jpg",
                 "https://example.com/image2.jpg"
@@ -324,6 +328,10 @@
     "property_details": "Luxury villa with sea view",
     "description": "Detailed property description",
     "area_sqft": 3500,
+    "area_name": "الشارقة - المجاز",
+    "area_name_id": 62,
+    "google_map_url": "https://maps.google.com/...",
+    "price_per_foot": 120,
     "images": [...],
     "cover_image": "https://example.com/cover.jpg",
     "cover_image_id": 789,
@@ -355,6 +363,12 @@
         { "value": "456", "label": "High" },
         { "value": "457", "label": "Medium" },
         { "value": "458", "label": "Low" }
+    ],
+    "ufCrm8_1771178784": [
+        { "value": "62", "label": "الشارقة - المجاز" },
+        { "value": "64", "label": "الشارقة - المجاز 2" },
+        { "value": "66", "label": "الشارقة - البليدة" },
+        { "value": "68", "label": "الشارقة - مويلح" }
     ]
 }</pre>
         </section>
@@ -428,7 +442,10 @@
     "area_sqft": 3500,
     "priority": 456,
     "images": [...],
-    "cover_image": "..."
+    "cover_image": "...",
+    "area_name": 62,
+    "google_map_url": "https://maps.google.com/...",
+    "price_per_foot": 120
 }</pre>
 
             <h3>Field Descriptions</h3>
@@ -488,6 +505,21 @@
                     <td>string</td>
                     <td>Cover image URL/file</td>
                 </tr>
+                <tr>
+                    <td>area_name</td>
+                    <td>integer</td>
+                    <td>Area name enum ID (see /enums)</td>
+                </tr>
+                <tr>
+                    <td>google_map_url</td>
+                    <td>string</td>
+                    <td>Google Map URL/Link</td>
+                </tr>
+                <tr>
+                    <td>price_per_foot</td>
+                    <td>number</td>
+                    <td>Price per square foot</td>
+                </tr>
             </table>
 
             <h3>Response (200 OK)</h3>
@@ -517,7 +549,10 @@
     "description": "Updated description",
     "property_type": 124,
     "area_sqft": 3600,
-    "priority": 457
+    "priority": 457,
+    "area_name": 64,
+    "google_map_url": "https://maps.google.com/new...",
+    "price_per_foot": 125
 }</pre>
 
             <h3>Response (200 OK)</h3>
